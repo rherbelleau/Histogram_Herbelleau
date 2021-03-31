@@ -87,11 +87,6 @@ int main(int argc, char **argv) {
 			case 'o':
 				outputFileName = optarg;
 				break;
-            case 'h':
-                printHelper();
-                exit(EXIT_SUCCESS);
-			default:
-				break;
 		}
 
 	printf("\n%s Starting...\n\n", argv[0]);
@@ -135,7 +130,6 @@ void Histogram(char* inputFileName, char* outputFileName) {
     inputFile = fopen(inputFileName, "r");
     if (!inputFile) {
         printf("Wrong input file\n");
-        printHelper();
 		exit(EXIT_FAILURE);
     }
 
