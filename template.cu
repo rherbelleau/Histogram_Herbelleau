@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
     if (outputFileName) {
         printf("Check results in %s.\n\n", outputFileName);
     } else {
-        printf("Check results in out.csv.\n\n");
+        printf("Check results in outputHisto.csv.\n\n");
     }
 
 	exit(EXIT_SUCCESS);
