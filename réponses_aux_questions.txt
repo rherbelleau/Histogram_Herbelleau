@@ -1,0 +1,24 @@
+1.	Avez-vous eu des difficultés à réaliser correctement l’optimisation ?
+Je n'étais pas la vendredi donc j'ai eu beaucoup de mal a comprendre au début, et il a fallu beaucoup m'aider.
+Prendre en main la connection SSH, cuda, de plus, je n'avais jamais fait de C.
+
+
+2.	Quelles sont les optimisations les plus bénéfiques ?
+550 ms si l'on traille sur la mémoire globale, je n'ai pas travaillé avec la mémoire partagée.
+
+3.	Combien de lectures de la mémoire globale sont-elles effectuées par votre kernel calculant l’histogramme ? expliquez.
+A chaque ligne : le programme lit toutes les lettres une par une et les tranforme en int.
+On ajoute 1 a l'index correspondant a la lettre. 
+On obtient donc un nombre de lecture de nb_lignes*(2*nb_lettres_sur_une_ligne)=2*nb_lettres_total
+
+4.	Combien d’opérations atomiques sont effectuées par votre kernel calculant l’histogramme ? expliquez.
+
+En reprenant l'explication de la 3, on voit qu'on a 2*nb_lignes*nb_lettres_sur_une_ligne à la première étape, 
+et la même chose a la deuxième (on lit et on réecrit)
+Soit un total de 4*nb_lignes*nb_lettres_sur_une_ligne = 4*nb_lettres_total
+
+5.	La plupart des fichiers texte se composent uniquement de lettres, de chiffres et de caractères d’espacement. 
+Que pouvons-nous dire sur les conflits d’accès concernant le nombre de threads qui essaient simultanément d’incrémenter atomiquement un histogramme privé ?
+
+Les threads ne peuvent pas lire et écrire simultanément sur le même index. 
+Or dans notre cas, il y a seulement quelques index ,compris entre 97 et 122, qui sont utilisés. On se retrouve donc avec des conflits d'accès.
